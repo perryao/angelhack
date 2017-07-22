@@ -29,6 +29,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bulma": "0.4.3",
+    "dotenv-webpack": "1.5.3",
     "object-assign": "4.1.0",
     "react": "15.5.4",
     "react-dom": "15.5.4",

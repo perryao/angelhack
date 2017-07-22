@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+import Dotenv from 'dotenv-webpack';
 
 export default {
   resolve: {
@@ -47,6 +48,10 @@ export default {
         context: '/',
         postcss: () => [autoprefixer],
       }
+    }),
+    new Dotenv({
+      path: './dev.env', // Path to .env file (this is the default)
+      safe: true // load .env.example (defaults to "false" which does not use dotenv-safe)
     })
   ],
   module: {
