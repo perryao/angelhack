@@ -9,7 +9,6 @@ const cors = require('cors');
 const whitelist = ['https://neighborhoodgrow.com', 'https://www.neighborhoodgrow.com', 'http://localhost:3010'];
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log(origin)
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
