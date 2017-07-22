@@ -1,12 +1,38 @@
 var express = require('express');
 var router = express.Router();
+const Influx = require('influx');
 const { Pool } = require('pg');
+
+const influx = new Influx.InfluxDB({
+  host: 'thisisadangeroussite.com:8888',
+  database: 'plant_data',
+  schema: [
+    {
+      measurement: 'response_times',
+      fields: {
+        path: Influx.FieldType.STRING,
+        duration: Influx.FieldType.INTEGER
+      },
+      tags: [
+      ]
+    }
+  ]
+});
+
+influx.getDatabaseNames()
+  .then(names => {
+    console.log(names);
+  })
+  .catch(err => {
+    console.log(err);
+    console.error(`Error creating Influx database!`);
+  })
 
 router.get('/complaints', (req, res, next) => {
 
   const pool = new Pool();
 
-  pool.query('SELECT * FROM angel_hack.complaints', (err, result) => {
+  pool.query('SELECT * FROM angel_hack.complaints WHERE production_code is not null', (err, result) => {
     if (err) {
       throw err
     }
@@ -16,6 +42,10 @@ router.get('/complaints', (req, res, next) => {
       data: result.rows
     });
   })
+});
+
+router.get('/timeseries', (req, res, next) => {
+
 });
 
 /**
