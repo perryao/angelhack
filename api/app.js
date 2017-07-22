@@ -6,16 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const cors = require('cors');
 
-const whitelist = ['https://neighborhoodgrow.com', 'https://www.neighborhoodgrow.com', 'http://localhost:3010'];
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    callback(null, true);
   },
-
 };
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -39,14 +33,14 @@ app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
