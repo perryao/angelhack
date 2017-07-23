@@ -3,6 +3,7 @@ var router = express.Router();
 const Influx = require('influx');
 const toNano = require('influx').toNanoDate;
 const { Pool } = require('pg');
+const snakeCaseKeys = require('snakecase-keys');
 
 const influx = new Influx.InfluxDB({
   host: 'thisisadangeroussite.com:8888',
@@ -23,14 +24,15 @@ const influx = new Influx.InfluxDB({
 router.get('/complaints', (req, res, next) => {
   const pool = new Pool();
 
-  pool.query('SELECT initial_receipt_date, case_contact_method, summary FROM angel_hack.complaints WHERE production_code is not null', (err, result) => {
+  pool.query('SELECT * FROM angel_hack.complaints WHERE "Production Code" like \'7%\' and length("Production Code") = 14', (err, result) => {
     if (err) {
       throw err
     }
 
     console.log('Found numer of rows: ' + result.rowCount);
+
     res.set('Content-Type', 'application/json').send({
-      data: result.rows
+      data: result.rows.map(snakeCaseKeys)
     });
   })
 });

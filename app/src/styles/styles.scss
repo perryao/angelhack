@@ -6,8 +6,25 @@ $family-sans-serif: 'Helvetica', 'Arial', sans-serif;
 
 @import "~bulma/bulma";
 
-.complaints-table {
-    overflow-x: auto;
+.nav {
+    top: 0;
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    margin-bottom: 10px;
+    #logo {
+        color: white;
+        span {
+            font-weight: bold;
+        }
+    }
+    background: rgb(0, 138, 222);
+    -webkit-box-shadow: 1px 4px 5px -5px black;
+    -moz-box-shadow: 1px 4px 5px -5px black;
+    box-shadow: 1px 4px 5px -5px black;
+}
+main {
+    margin-top: 50px;
 }
 // body {
 //   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
