@@ -6,7 +6,7 @@ export default class App extends Component {
             <div>
                 <header className="nav">
                     <div className="nav-center">
-                        <p id="logo">Time-Series Anomaly Turk</p>
+                        <p id="logo">Time Series Anomaly Turk</p>
                 </div>
                 </header>
                 <main>{this.props.children}</main>
