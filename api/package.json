@@ -18,7 +18,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
     "pg": "^7.0.2",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "snakecase-keys": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
