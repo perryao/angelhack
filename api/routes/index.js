@@ -32,7 +32,7 @@ router.get('/complaints', (req, res, next) => {
 
   const pool = new Pool();
 
-  pool.query('SELECT * FROM angel_hack.complaints WHERE production_code is not null', (err, result) => {
+  pool.query('SELECT initial_receipt_date, case_contact_method, summary FROM angel_hack.complaints WHERE production_code is not null', (err, result) => {
     if (err) {
       throw err
     }
