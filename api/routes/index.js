@@ -3,6 +3,7 @@ var router = express.Router();
 const Influx = require('influx');
 const toNano = require('influx').toNanoDate;
 const { Pool } = require('pg');
+const faker = require('faker');
 
 const influx = new Influx.InfluxDB({
   host: 'thisisadangeroussite.com:8888',
@@ -33,6 +34,10 @@ router.get('/complaints', (req, res, next) => {
       data: result.rows
     });
   })
+});
+
+router.get('/faker', (req, res, next) => {
+  res.send('fake data here');
 });
 
 router.get('/timeseries', (req, res, next) => {
