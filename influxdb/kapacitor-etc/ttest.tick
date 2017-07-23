@@ -1,0 +1,21 @@
+var alpha = 0.001
+
+var data = batch
+	|query('SELECT * from plant_test.autogen.data')
+		.period(5m)
+		.every(5m)
+		.fill(0)
+
+data
+	@tTest()
+		.field('tank_1_f')
+		.size(3600)
+		.alpha(alpha)
+	|alert()
+		.id('tank_1_f')
+		.crit(lambda: "pvalue" < alpha)
+		.log('/mnt/output/tank_1_f.log')
+	|influxdbDBOut()
+		.database('tank_temps')
+		.measurement('temps')
+		.create()

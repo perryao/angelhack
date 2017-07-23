@@ -1,0 +1,19 @@
+var data = batch
+	|query('SELECT c_kghr from "plant_data"."autogen"."data"')
+		.period(30m)
+		.every(5m)
+		.align()
+
+data
+	@outliers()
+		.field('c_kghr')
+		.scale(1.1)
+	|alert()
+		.id('c_kghr')
+		.crit(lambda: "value" < 1.1)
+		.log('/mnt/output/c_kghr.log')
+	|influxDBOut()
+		.database('outliers')
+		.measurement('data')
+		.create()
+		

@@ -1,0 +1,18 @@
+var alpha = 0.001
+
+var data = stream
+	|from ()
+		.measurement('data')
+	|window()
+		.period(5m)
+		.every(5m)
+
+data
+	@tTest()
+		.field('tank_1_f')
+		.size(3600)
+		.alpha(alpha)
+	|alert()
+		.id('tank_1_f')
+		.crit(lambda: "pvalue" < alpha)
+		.log('/mnt/output/tank_1_f.log')
