@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ComplaintsList from '../components/ComplaintsList';
 import ComplaintDetail from '../components/ComplaintDetail';
 import { connect } from 'react-redux';
-import { fetchComplaints, selectComplaint } from '../actions';
+import { fetchComplaints, selectComplaint, clearComplaint } from '../actions';
+import _ from 'lodash';
 
 export class HomePage extends Component {
     constructor() {
@@ -21,8 +22,10 @@ export class HomePage extends Component {
     render() {
         console.log(this.props.productionCodes);
         const rows = this.props.complaints.map((x, i) => {
+            const active = _.isEqual(x, this.props.selected);
+            const className = active ? 'panel-block is-active' : 'panel-block';
             return (
-                <a key={i} onClick={() => this.onClick(x)} className="panel-block" style={{'width': `100%`}}>
+                <a key={i} onClick={() => this.onClick(x)} className={className} style={{'width': `100%`}}>
                     Production Code: <strong className='is-pulled-left'> {x.production_code}</strong> 
                 </a>
             )
@@ -36,7 +39,7 @@ export class HomePage extends Component {
                     </nav>
                 </div>
                 <div id='complaint-detail' className="column">
-                    <ComplaintDetail complaint={this.props.selected}/>
+                    <ComplaintDetail onDecision={(complaint) => this.props.clearComplaint(complaint)} complaint={this.props.selected}/>
                 </div>
             </div>
         );
@@ -50,6 +53,7 @@ export default connect(
     }),
     (dispatch) => ({
         fetchComplaints: () => dispatch(fetchComplaints()),
-        selectComplaint: (complaint) => dispatch(selectComplaint(complaint))
+        selectComplaint: (complaint) => dispatch(selectComplaint(complaint)),
+        clearComplaint: (complaint) => dispatch(clearComplaint(complaint))
     })
 )(HomePage);
