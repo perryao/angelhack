@@ -1,6 +1,13 @@
 import * as actionTypes from '../constants';
 import { CALL_API } from '../middleware/api';
 
+export function clearComplaint(complaint) {
+    return {
+        type: actionTypes.CLEAR_COMPLAINT,
+        complaint
+    }
+}
+
 export function selectComplaint(complaint) {
     return {
         type: actionTypes.SELECT_COMPLAINT,
